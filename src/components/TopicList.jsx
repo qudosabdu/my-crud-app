@@ -6,9 +6,9 @@ import { HiTrash } from "react-icons/hi";
 
 const getTopics = async () => {
   try {
-    const response = await fetch("http://localhost:3000/api/topics", {
-      cache: "no-store",
-    });
+    const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/topics`;
+
+    const response = await fetch(apiUrl);
 
     if (!response.ok) {
       throw new Error("Failed to fetch topics");
@@ -16,9 +16,11 @@ const getTopics = async () => {
 
     return response.json();
   } catch (error) {
-    console.log("Error loading to topics", error);
+    console.log("Error loading topics", error);
+    return [];
   }
 };
+
 
 async function TopicList() {
   const topics = await getTopics();

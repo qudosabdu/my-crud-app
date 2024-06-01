@@ -2,8 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-
-function EditTopicForm({ title, description, id}) {
+function EditTopicForm({ title, description, id }) {
   const router = useRouter();
   const [newTitle, setNewTitle] = useState(title);
   const [newDescription, setNewDescription] = useState(description);
@@ -11,7 +10,7 @@ function EditTopicForm({ title, description, id}) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:3000/api/topics/${id}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/topics/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -29,8 +28,7 @@ function EditTopicForm({ title, description, id}) {
     } catch (error) {
       console.log("Error updating the topic", error);
     }
-  }
-
+  };
 
   return (
     <form className="flex flex-col gap-3" onSubmit={handleSubmit}>

@@ -9,11 +9,11 @@ function RemoveBtn({ id }) {
     const confirmed = confirm("Are you sure you want to delete this topic?");
     if (confirmed) {
       try {
-        const response = await fetch(`http://localhost:3000/api/topics/${id}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/topics/${id}`, {
           method: "DELETE",
         });
 
-        if(response.ok) {
+        if (response.ok) {
           alert("Topic deleted successfully");
           router.refresh();
         } else {
@@ -21,8 +21,7 @@ function RemoveBtn({ id }) {
         }
 
         // Refresh the page
-        
-
+        router.refresh();
       } catch (error) {
         console.log("Error deleting the topic", error);
       }
